@@ -7,3 +7,4 @@ En el siguiente repositorio se encuentran disponibles los siguientes recursos:
 - Análisis de textos con Procesamiento de Lenguaje Natural
 - Crear QR desde Python 
 - Script para pasar de links a una citación automática con APA 7
+- Script para obtener el resumen y el por qué es importante un artículo utilizando GPT-3 de Open AI
