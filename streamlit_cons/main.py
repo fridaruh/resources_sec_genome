@@ -18,14 +18,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def openai_connect():
     openai.api_key = st.secrets["openai_api_key"]
     
-# Create a connection object.
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"],
-    scopes=[
-        "https://www.googleapis.com/auth/spreadsheets",
-    ],
-)
-conn = connect(credentials=credentials)
 
 
 st.header('Streamlit: Banco de Señales')
