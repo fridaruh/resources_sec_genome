@@ -3,6 +3,7 @@
 import streamlit as st 
 from pandas import DataFrame
 from google.oauth2 import service_account
+from gsheetsdb import connect
 import os
 import openai
 
@@ -22,13 +23,17 @@ def openai_connect():
     openai.api_key = credential_openai.openai_api_key
 
 
-# Create a Google Authentication connection object
-scope = ['https://spreadsheets.google.com/feeds',
-         'https://www.googleapis.com/auth/drive']
-
+# Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
-                st.secrets["gcp_service_account"], scopes = scope)
-client = Client(scope=scope,creds=credentials)
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+conn = connect(credentials=credentials)
+
+client = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
+
 spreadsheetname = "Database"
 spread = Spread(spreadsheetname,client = client)
 
