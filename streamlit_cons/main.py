@@ -5,7 +5,8 @@ from pandas import DataFrame
 import os
 import openai
 
-from gspread_pandas import Spread,Client
+from gspread_pandas import Spread
+from gspread_pandas import Client
 from google.oauth2 import service_account
 
 from datetime import datetime
@@ -19,7 +20,27 @@ def openai_connect():
     credential_openai= st.secrets["openai_creds"]
     openai.api_key = credential_openai.openai_api_key
     
+# Create a Google Authentication connection object
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
 
+credentials = service_account.Credentials.from_service_account_info(
+                st.secrets["gcp_service_account"], scopes = scope)
+client = Client(scope=scope,creds=credentials)
+spreadsheetname = "Database"
+spread = Spread(spreadsheetname,client = client)
+
+# Check the connection
+st.write(spread.url)
+
+sh = client.open(spreadsheetname)
+worksheet_list = sh.worksheets()
+
+# Check the connection
+st.write(spread.url)
+
+sh = client.open(spreadsheetname)
+worksheet_list = sh.worksheets()
 
 st.header('Streamlit: Banco de Señales')
 
