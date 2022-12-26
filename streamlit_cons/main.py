@@ -32,15 +32,15 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 conn = connect(credentials=credentials)
 
-client = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
+cliente = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
 
 spreadsheetname = "Database"
-spread = Spread(spreadsheetname,client = client)
+spread = Spread(spreadsheetname,client = cliente)
 
 # Check the connection
 st.write(spread.url)
 
-sh = client.open(spreadsheetname)
+sh = cliente.open(spreadsheetname)
 worksheet_list = sh.worksheets()
 
 # Functions 
