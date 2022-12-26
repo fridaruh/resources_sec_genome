@@ -2,6 +2,7 @@
 ## Modules
 import streamlit as st 
 from pandas import DataFrame
+from google.oauth2 import service_account
 import os
 import openai
 
@@ -19,7 +20,8 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def openai_connect():
     credential_openai= st.secrets["openai_creds"]
     openai.api_key = credential_openai.openai_api_key
-    
+
+
 # Create a Google Authentication connection object
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -36,11 +38,27 @@ st.write(spread.url)
 sh = client.open(spreadsheetname)
 worksheet_list = sh.worksheets()
 
-# Check the connection
-st.write(spread.url)
+# Functions 
+@st.cache()
+# Get our worksheet names
+def worksheet_names():
+    sheet_names = []   
+    for sheet in worksheet_list:
+        sheet_names.append(sheet.title)  
+    return sheet_names
 
-sh = client.open(spreadsheetname)
-worksheet_list = sh.worksheets()
+# Get the sheet as dataframe
+def load_the_spreadsheet(spreadsheetname):
+    worksheet = sh.worksheet(spreadsheetname)
+    df = DataFrame(worksheet.get_all_records())
+    return df
+
+# Update to Sheet
+def update_the_spreadsheet(spreadsheetname,dataframe):
+    col = ['Link','Resumen','Time_stamp','What?','So what?']
+    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
+    st.sidebar.info('Updated to GoogleSheet')
+
 
 st.header('Streamlit: Banco de Señales')
 
@@ -58,10 +76,10 @@ summary = st.text_input('Summary')
 st.title('Mostrar la información')
 show = st.sidebar.button('Mostrar información OpenAI')
 if show:
-    what = "Get very short summary in spanish of this text: "+summary
+    what = "Get very short abstract in spanish of this text: "+summary
     why = 'Answer very shortly in spanish why is important this text: '+summary
-    resumen_openai_what = openai.Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
-    resumen_openai_why = openai.Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
+    resumen_openai_what = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
+    resumen_openai_why = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
 
     st.write('¿Sobre qué trata el texto?')
     st.write(resumen_openai_what['choices'][0]['text'])
@@ -70,3 +88,19 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
+#Agregar entrada de información
+add = st.sidebar.checkbox('Agregar señal')
+if add :  
+    link_nuevo = st.sidebar.text_input('link_nuevo')
+    confirm_input = st.sidebar.button('Confirm')
+    
+    if confirm_input:
+        now = datetime.now()
+        opt = {'Enlace': [link_nuevo],
+                'Resumen' : [summary],
+              'Time_stamp' :  [now],
+              'What?' : [resumen_openai_what['choices'][0]['text']],
+                'So what?' : [resumen_openai_why['choices'][0]['text']]}
+        opt_df = DataFrame(opt)
+        df = load_the_spreadsheet('Hoja 1')
+        new_df = df.append(opt_df,ignore_index=True)
