@@ -16,7 +16,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 #Connect to openAI
 def openai_connect():
-    openai.api_key = st.secrets["openai_api_key"]
+     openai.api_key = st.secrets[["openai_api_key"]["openai_api_key"]]
     
 
 
