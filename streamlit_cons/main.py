@@ -18,41 +18,14 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def openai_connect():
     openai.api_key = st.secrets["openai_api_key"]
     
-# Create a Google Authentication connection object
-scope = ['https://www.googleapis.com/auth/sheets']
-
+# Create a connection object.
 credentials = service_account.Credentials.from_service_account_info(
-                st.secrets["gcp_service_account"], scopes = scope)
-client = Client(scope=scope,creds=credentials)
-spreadsheetname = "Database"
-spread = Spread(spreadsheetname,client = client)
-
-# Check the connection
-st.write(spread.url)
-
-sh = client.open(spreadsheetname)
-worksheet_list = sh.worksheets()
-
-# Functions 
-@st.cache()
-# Get our worksheet names
-def worksheet_names():
-    sheet_names = []   
-    for sheet in worksheet_list:
-        sheet_names.append(sheet.title)  
-    return sheet_names
-
-# Get the sheet as dataframe
-def load_the_spreadsheet(spreadsheetname):
-    worksheet = sh.worksheet(spreadsheetname)
-    df = DataFrame(worksheet.get_all_records())
-    return df
-
-# Update to Sheet
-def update_the_spreadsheet(spreadsheetname,dataframe):
-    col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
-    st.sidebar.info('Updated to GoogleSheet')
+    st.secrets["gcp_service_account"],
+    scopes=[
+        "https://www.googleapis.com/auth/spreadsheets",
+    ],
+)
+conn = connect(credentials=credentials)
 
 
 st.header('Streamlit: Banco de Señales')
@@ -83,19 +56,3 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
-#Agregar entrada de información
-add = st.sidebar.checkbox('Agregar señal')
-if add :  
-    link_nuevo = st.sidebar.text_input('link_nuevo')
-    confirm_input = st.sidebar.button('Confirm')
-    
-    if confirm_input:
-        now = datetime.now()
-        opt = {'Enlace': [link_nuevo],
-                'Resumen' : [summary],
-              'Time_stamp' :  [now],
-              'What?' : [resumen_openai_what['choices'][0]['text']],
-                'So what?' : [resumen_openai_why['choices'][0]['text']]}
-        opt_df = DataFrame(opt)
-        df = load_the_spreadsheet('Hoja 1')
-        new_df = df.append(opt_df,ignore_index=True)
