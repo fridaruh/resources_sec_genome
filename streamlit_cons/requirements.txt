@@ -1,3 +1,4 @@
 # requirements.txt
 gsheetsdb==0.1.13.1
+gspread_pandas==3.2.2
 openai == 0.25.0
