@@ -2,10 +2,12 @@
 ## Modules
 import streamlit as st 
 from pandas import DataFrame
+from google.oauth2 import service_account
 import os
 import openai
 
-from gspread_pandas import Spread,Client
+from gspread_pandas import Spread
+from gspread_pandas import Client
 from google.oauth2 import service_account
 
 from datetime import datetime
@@ -16,8 +18,10 @@ ssl._create_default_https_context = ssl._create_unverified_context
 
 #Connect to openAI
 def openai_connect():
-    openai.api_key = st.secrets["openai_api_key"]
-    
+    credential_openai= st.secrets["openai_creds"]
+    openai.api_key = credential_openai.openai_api_key
+
+
 # Create a Google Authentication connection object
 scope = ['https://spreadsheets.google.com/feeds',
          'https://www.googleapis.com/auth/drive']
@@ -51,7 +55,7 @@ def load_the_spreadsheet(spreadsheetname):
 
 # Update to Sheet
 def update_the_spreadsheet(spreadsheetname,dataframe):
-    col = ['Enlace','Resumen','Time_stamp','What?','So what?']
+    col = ['Link','Resumen','Time_stamp','What?','So what?']
     spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
     st.sidebar.info('Updated to GoogleSheet')
 
