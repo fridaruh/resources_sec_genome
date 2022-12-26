@@ -39,8 +39,8 @@ show = st.sidebar.button('Mostrar información OpenAI')
 if show:
     what = "Get very short abstract in spanish of this text: "+summary
     why = 'Answer very shortly in spanish why is important this text: '+summary
-    resumen_openai_what = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
-    resumen_openai_why = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
+    resumen_openai_what = openai_connect().Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
+    resumen_openai_why = openai_connect().Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
 
     st.write('¿Sobre qué trata el texto?')
     st.write(resumen_openai_what['choices'][0]['text'])
