@@ -19,8 +19,7 @@ def openai_connect():
     openai.api_key = st.secrets["openai_api_key"]
     
 # Create a Google Authentication connection object
-scope = ['https://spreadsheets.google.com/feeds',
-         'https://www.googleapis.com/auth/drive']
+scope = ['https://www.googleapis.com/auth/sheets']
 
 credentials = service_account.Credentials.from_service_account_info(
                 st.secrets["gcp_service_account"], scopes = scope)
