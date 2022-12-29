@@ -6,7 +6,7 @@ from google.oauth2 import service_account
 from gsheetsdb import connect
 import os
 import openai
-
+import gspread
 from gspread_pandas import Spread
 from gspread_pandas import Client
 from google.oauth2 import service_account
@@ -32,15 +32,13 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 conn = connect(credentials=credentials)
 
-cliente = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
+gc = gspread.service_account()
 
+sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 spreadsheetname = "Database"
-spread = Spread(spreadsheetname,client = cliente)
+worksheet = sh.get_worksheet(spreadsheetname)
+####
 
-# Check the connection
-st.write(spread.url)
-
-sh = cliente.open(spreadsheetname)
 worksheet_list = sh.worksheets()
 
 # Functions 
@@ -57,13 +55,6 @@ def load_the_spreadsheet(spreadsheetname):
     worksheet = sh.worksheet(spreadsheetname)
     df = DataFrame(worksheet.get_all_records())
     return df
-
-# Update to Sheet
-def update_the_spreadsheet(spreadsheetname,dataframe):
-    col = ['Link','Resumen','Time_stamp','What?','So what?']
-    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
-    st.sidebar.info('Updated to GoogleSheet')
-
 
 st.header('Streamlit: Banco de Señales')
 
@@ -109,3 +100,4 @@ if add :
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet('Hoja 1')
         new_df = df.append(opt_df,ignore_index=True)
+  
