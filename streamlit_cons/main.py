@@ -68,7 +68,7 @@ summary = st.text_input('Summary')
 
 # Mostrar la información
 st.title('Mostrar la información')
-show = st.sidebar.button('Mostrar información OpenAI')
+show = st.button('Mostrar información OpenAI')
 if show:
     what = "Get very short abstract in spanish of this text: "+summary
     why = 'Answer very shortly in spanish why is important this text: '+summary
@@ -87,9 +87,9 @@ else:
 
     
 #Agregar entrada de información
-add = st.sidebar.checkbox('Agregar señal')
+add = st.checkbox('Agregar señal')
 if add :  
-    confirm_input = st.sidebar.button('Confirm')
+    confirm_input = st.button('Confirm')
     
     if confirm_input:
         now = datetime.now()
