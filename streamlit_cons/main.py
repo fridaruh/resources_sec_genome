@@ -55,6 +55,11 @@ def load_the_spreadsheet(spreadsheetname):
    df = DataFrame(worksheet.get_all_records())
    return df
 
+# Update to Sheet
+def update_the_spreadsheet(spreadsheetname,dataframe):
+    col = ['Enlace','Resumen','Time_stamp','What?','So what?']
+    sh.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
+    st.info('Updated to GoogleSheet')
 
 st.header('Streamlit: Banco de Señales')
 
@@ -103,6 +108,7 @@ if confirm_input:
     df = load_the_spreadsheet(spreadsheetname)
     df = DataFrame(df)
     new_df = df.append(opt_df,ignore_index=True)
+    update_the_spreadsheet(spreadsheetname,new_df)
     st.table(new_df)
 else: 
     st.write('No se ha confirmado la entrada')
