@@ -59,7 +59,7 @@ def load_the_spreadsheet(spreadsheetname):
 
 def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    worksheet.update('A:E', dataframe)
+    worksheet.update('A:E', dataframe.to_json(orient="values"))
     st.info('Updated to GoogleSheet')
 
 
