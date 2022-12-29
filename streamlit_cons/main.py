@@ -55,10 +55,15 @@ def load_the_spreadsheet(spreadsheetname):
    df = DataFrame(worksheet.get_all_records())
    return df
 
-# Update to Sheet
 def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    spreadsheetname.update(spreadsheetname, dataframe)
+    worksheet.batch_update([{
+    'range': 'A:E',
+    'values': [df],
+}, {
+    'range': 'A:E',
+    'values': [dataframe],
+}])
     st.info('Updated to GoogleSheet')
 
 
