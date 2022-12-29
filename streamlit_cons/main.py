@@ -66,7 +66,7 @@ st.write('Introduce el resumen')
 summary = st.text_input('Summary')
 
 
-# Mostrar la información
+ Mostrar la información
 st.title('Mostrar la información')
 show = st.sidebar.button('Mostrar información OpenAI')
 if show:
@@ -75,10 +75,13 @@ if show:
     resumen_openai_what = openai.Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
     resumen_openai_why = openai.Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
 
+    resumen_openai_what_ans = resumen_openai_what['choices'][0]['text']
+    resumen_openai_why_ans = resumen_openai_why['choices'][0]['text']
+
     st.write('¿Sobre qué trata el texto?')
-    st.write(resumen_openai_what['choices'][0]['text'])
+    st.write(resumen_openai_what_ans)
     st.write('¿Por qué es importante?')
-    st.write(resumen_openai_why['choices'][0]['text'])
+    st.write(resumen_openai_why_ans)
 else:
     st.write('No se ha mostrado la información')
 
@@ -92,10 +95,10 @@ if add :
         now = datetime.now()
         opt = {'Enlace': [link_nuevo],
                 'Resumen' : [summary],
-              'Time_stamp' :  [now],
-              'What?' : [resumen_openai_what['choices'][0]['text']],
-                'So what?' : [resumen_openai_why['choices'][0]['text']]}
+                'Time_stamp' : [now],
+                'What?' : [resumen_openai_what_ans],
+                'So what?' : [resumen_openai_why_ans]}
         opt_df = DataFrame(opt)
-        df = load_the_spreadsheet('Hoja 1')
+        df = load_the_spreadsheet(spreadsheetname)
         new_df = df.append(opt_df,ignore_index=True)
   
