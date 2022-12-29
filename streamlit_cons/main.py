@@ -85,21 +85,19 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
-st.table(load_the_spreadsheet(spreadsheetname))
     
 #Agregar entrada de información
 add = st.sidebar.checkbox('Agregar señal')
 if add :  
-    link_nuevo = st.sidebar.text_input('link_nuevo')
     confirm_input = st.sidebar.button('Confirm')
     
     if confirm_input:
         now = datetime.now()
-        opt = {'Enlace': [link_nuevo],
+        opt = {'Enlace': [link],
                 'Resumen' : [summary],
                 'Time_stamp' : [now],
-                'What?' : [resumen_openai_what_ans],
-                'So what?' : [resumen_openai_why_ans]}
+                'What?' : [str(resumen_openai_what_ans)],
+                'So what?' : [str(resumen_openai_why_ans)]}
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet(spreadsheetname)
         df = DataFrame(df, ignore_index=True)
