@@ -102,5 +102,6 @@ if add :
                 'So what?' : [resumen_openai_why_ans]}
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet(spreadsheetname)
+        df = DataFrame(df, ignore_index=True)
         new_df = df.append(opt_df,ignore_index=True)
   
