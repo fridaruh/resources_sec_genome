@@ -54,6 +54,7 @@ def load_the_spreadsheet(spreadsheetname):
    df = DataFrame(worksheet.get_all_records())
    return df
 
+
 st.header('Streamlit: Banco de Señales')
 
 st.title('Información de la señal')
@@ -85,7 +86,7 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
-    
+
 #Agregar entrada de información
 add = st.checkbox('Agregar señal')
 if add :  
@@ -100,6 +101,5 @@ if add :
                 'So what?' : [str(resumen_openai_why_ans)]}
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet(spreadsheetname)
-        df = DataFrame(df, ignore_index=True)
+        df = DataFrame(df)
         new_df = df.append(opt_df,ignore_index=True)
-  
