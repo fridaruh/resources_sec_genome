@@ -36,7 +36,7 @@ gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 worksheet_list = sh.worksheets()
-st.write(worksheet_list)
+
 spreadsheetname= worksheet_list[0].title
 
 # Functions 
@@ -48,7 +48,6 @@ def worksheet_names():
         sheet_names.append(sheet.title)  
     return sheet_names
 
-st.write(worksheet_names())
 # Get the sheet as dataframe
 def load_the_spreadsheet(spreadsheetname):
    worksheet = sh.worksheet(spreadsheetname)
