@@ -21,6 +21,7 @@ ssl._create_default_https_context = ssl._create_unverified_context
 def openai_connect():
     credential_openai= st.secrets["openai_creds"]
     openai.api_key = credential_openai.openai_api_key
+    return openai
 
 
 # Create a connection object.
@@ -73,8 +74,8 @@ show = st.button('Mostrar información OpenAI')
 if show:
     what = "Get very short abstract in spanish of this text: "+summary
     why = 'Answer very shortly in spanish why is important this text: '+summary
-    resumen_openai_what = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
-    resumen_openai_why = openai_connect().openai.Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
+    resumen_openai_what = openai_connect().Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
+    resumen_openai_why = openai_connect().Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
 
     resumen_openai_what_ans = resumen_openai_what['choices'][0]['text']
     resumen_openai_why_ans = resumen_openai_why['choices'][0]['text']
