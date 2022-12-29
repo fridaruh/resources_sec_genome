@@ -57,9 +57,14 @@ def load_the_spreadsheet(spreadsheetname):
    df = DataFrame(worksheet.get_all_records())
    return df
 
+#Revisar esto, quizá deba hardcodearse
+cliente = Client(credentials)
+spread = Spread(spreadsheetname,client = cliente)
+
+
 def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    worksheet.update('A:E', dataframe.to_json(orient="columns"))
+    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
     st.info('Updated to GoogleSheet')
 
 
