@@ -42,13 +42,13 @@ worksheet = sh.get_worksheet(spreadsheetname)
 worksheet_list = sh.worksheets()
 
 # Functions 
-@st.cache()
+#@st.cache()
 # Get our worksheet names
-def worksheet_names():
-    sheet_names = []   
-    for sheet in worksheet_list:
-        sheet_names.append(sheet.title)  
-    return sheet_names
+#def worksheet_names():
+#    sheet_names = []   
+#    for sheet in worksheet_list:
+#        sheet_names.append(sheet.title)  
+#    return sheet_names
 
 # Get the sheet as dataframe
 def load_the_spreadsheet(spreadsheetname):
