@@ -103,8 +103,9 @@ if confirm_input:
     df = load_the_spreadsheet(spreadsheetname)
     df = DataFrame(df)
     new_df = df.append(opt_df,ignore_index=True)
+    st.table(new_df)
 else: 
     st.write('No se ha confirmado la entrada')
 
     
-st.table(new_df)
+
