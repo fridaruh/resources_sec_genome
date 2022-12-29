@@ -105,3 +105,5 @@ if add :
         df = load_the_spreadsheet(spreadsheetname)
         df = DataFrame(df)
         new_df = df.append(opt_df,ignore_index=True)
+
+ st.table(df)
