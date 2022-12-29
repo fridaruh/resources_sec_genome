@@ -66,7 +66,7 @@ st.write('Introduce el resumen')
 summary = st.text_input('Summary')
 
 
- Mostrar la información
+# Mostrar la información
 st.title('Mostrar la información')
 show = st.sidebar.button('Mostrar información OpenAI')
 if show:
