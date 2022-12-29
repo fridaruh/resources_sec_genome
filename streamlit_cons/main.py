@@ -71,15 +71,16 @@ summary = st.text_input('Summary')
 # Mostrar la información
 st.title('Mostrar la información')
 show = st.button('Mostrar información OpenAI')
+
+what = "Get very short abstract in spanish of this text: "+summary
+why = 'Answer very shortly in spanish why is important this text: '+summary
+resumen_openai_what = openai_connect().Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
+resumen_openai_why = openai_connect().Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
+
+resumen_openai_what_ans = resumen_openai_what['choices'][0]['text']
+resumen_openai_why_ans = resumen_openai_why['choices'][0]['text']
+
 if show:
-    what = "Get very short abstract in spanish of this text: "+summary
-    why = 'Answer very shortly in spanish why is important this text: '+summary
-    resumen_openai_what = openai_connect().Completion.create(model="text-davinci-003", prompt=what, temperature=0, max_tokens=100)
-    resumen_openai_why = openai_connect().Completion.create(model="text-davinci-003", prompt=why, temperature=0, max_tokens=100)
-
-    resumen_openai_what_ans = resumen_openai_what['choices'][0]['text']
-    resumen_openai_why_ans = resumen_openai_why['choices'][0]['text']
-
     st.write('¿Sobre qué trata el texto?')
     st.write(resumen_openai_what_ans)
     st.write('¿Por qué es importante?')
@@ -98,8 +99,8 @@ if add :
         opt = {'Enlace': [link],
                 'Resumen' : [summary],
                 'Time_stamp' : [now],
-                'What?' : [str(resumen_openai_what_ans)],
-                'So what?' : [str(resumen_openai_why_ans)]}
+                'What?' : [resumen_openai_what_ans],
+                'So what?' : [resumen_openai_why_ans]}
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet(spreadsheetname)
         df = DataFrame(df)
