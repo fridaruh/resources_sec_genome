@@ -90,22 +90,21 @@ else:
 
 
 #Agregar entrada de información
-add = st.checkbox('Agregar señal')
-if add :  
-    confirm_input = st.button('Confirm')
-    
-    if confirm_input:
-        now = datetime.now()
-        opt = {'Enlace': [link],
-                'Resumen' : [summary],
-                'Time_stamp' : [now],
-                'What?' : [resumen_openai_what_ans],
-                'So what?' : [resumen_openai_why_ans]}
-        opt_df = DataFrame(opt)
-        df = load_the_spreadsheet(spreadsheetname)
-        df_2 = DataFrame(df)
-        new_df = df_2.append(opt_df,ignore_index=True)
-    else: st.write('No se puede agregar')
-else: st.write('No se puede agregar 2')
+
+confirm_input = st.button('Confirm')
+if confirm_input:
+    now = datetime.now()
+    opt = {'Enlace': [link],
+            'Resumen' : [summary],
+            'Time_stamp' : [now],
+            'What?' : [resumen_openai_what_ans],
+            'So what?' : [resumen_openai_why_ans]}
+    opt_df = DataFrame(opt)
+    df = load_the_spreadsheet(spreadsheetname)
+    df = DataFrame(df)
+    new_df = df.append(opt_df,ignore_index=True)
+else: 
+    st.write('No se ha confirmado la entrada')
+
     
 st.table(new_df)
