@@ -43,7 +43,7 @@ spreadsheetname = "Database"
 
 worksheet_list = sh.worksheets()
 st.write(worksheet_list)
-st.write(worksheet_list[0].title)
+st.write(worksheet)
 
 # Functions 
 #@st.cache()
