@@ -37,7 +37,6 @@ gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 worksheet_list = sh.worksheets()
-worksheet = sh.get_worksheet(0)
 
 spreadsheetname= worksheet_list[0].title
 
@@ -59,7 +58,7 @@ def load_the_spreadsheet(spreadsheetname):
 # Update to Sheet
 def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    worksheet.update(spreadsheetname, dataframe)
+    spreadsheetname.update(spreadsheetname, dataframe)
     st.info('Updated to GoogleSheet')
 
 
