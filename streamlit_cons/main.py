@@ -103,7 +103,9 @@ if add :
                 'So what?' : [resumen_openai_why_ans]}
         opt_df = DataFrame(opt)
         df = load_the_spreadsheet(spreadsheetname)
-        df = DataFrame(df)
-        new_df = df.append(opt_df,ignore_index=True)
-
- st.table(df)
+        df_2 = DataFrame(df)
+        new_df = df_2.append(opt_df,ignore_index=True)
+    else: st.write('No se puede agregar')
+else: st.write('No se puede agregar 2')
+    
+st.table(new_df)
