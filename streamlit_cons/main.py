@@ -49,6 +49,8 @@ def worksheet_names():
         sheet_names.append(sheet.title)  
     return sheet_names
 
+worksheet = sh.worksheet(spreadsheetname)
+
 # Get the sheet as dataframe
 def load_the_spreadsheet(spreadsheetname):
    worksheet = sh.worksheet(spreadsheetname)
