@@ -36,7 +36,7 @@ gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 spreadsheetname = "Database"
-worksheet = sh.get_worksheet(spreadsheetname)
+#worksheet = sh.get_worksheet(spreadsheetname)
 ####
 
 worksheet_list = sh.worksheets()
@@ -51,10 +51,10 @@ worksheet_list = sh.worksheets()
 #    return sheet_names
 
 # Get the sheet as dataframe
-def load_the_spreadsheet(spreadsheetname):
-    worksheet = sh.worksheet(spreadsheetname)
-    df = DataFrame(worksheet.get_all_records())
-    return df
+#def load_the_spreadsheet(spreadsheetname):
+#    worksheet = sh.worksheet(spreadsheetname)
+#    df = DataFrame(worksheet.get_all_records())
+#    return df
 
 st.header('Streamlit: Banco de Señales')
 
