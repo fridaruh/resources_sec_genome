@@ -85,6 +85,8 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
+st.table(load_the_spreadsheet(spreadsheetname))
+    
 #Agregar entrada de información
 add = st.sidebar.checkbox('Agregar señal')
 if add :  
