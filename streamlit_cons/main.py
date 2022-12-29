@@ -61,10 +61,10 @@ def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
     worksheet.batch_update([{
     'range': 'A:E',
-    'values': [df],
+    'values': [df.to_json(orient="table")],
 }, {
     'range': 'A:E',
-    'values': [dataframe],
+    'values': [dataframe.to_json(orient="table")],
 }])
     st.info('Updated to GoogleSheet')
 
