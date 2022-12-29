@@ -36,10 +36,13 @@ gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 spreadsheetname = "Database"
+
+
 #worksheet = sh.get_worksheet(spreadsheetname)
 ####
 
 worksheet_list = sh.worksheets()
+st.write(worksheet_list)
 
 # Functions 
 #@st.cache()
