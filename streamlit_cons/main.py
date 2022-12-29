@@ -35,30 +35,25 @@ conn = connect(credentials=credentials)
 gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
-spreadsheetname = "Database"
-
-
-#worksheet = sh.get_worksheet(spreadsheetname)
-####
-
 worksheet_list = sh.worksheets()
 st.write(worksheet_list)
-st.write(worksheet)
+spreadsheetname= worksheet_list[0].title
 
 # Functions 
-#@st.cache()
+@st.cache()
 # Get our worksheet names
-#def worksheet_names():
-#    sheet_names = []   
-#    for sheet in worksheet_list:
-#        sheet_names.append(sheet.title)  
-#    return sheet_names
+def worksheet_names():
+    sheet_names = []   
+    for sheet in worksheet_list:
+        sheet_names.append(sheet.title)  
+    return sheet_names
 
+st.write(worksheet_names())
 # Get the sheet as dataframe
-#def load_the_spreadsheet(spreadsheetname):
-#    worksheet = sh.worksheet(spreadsheetname)
-#    df = DataFrame(worksheet.get_all_records())
-#    return df
+def load_the_spreadsheet(spreadsheetname):
+   worksheet = sh.worksheet(spreadsheetname)
+   df = DataFrame(worksheet.get_all_records())
+   return df
 
 st.header('Streamlit: Banco de Señales')
 
