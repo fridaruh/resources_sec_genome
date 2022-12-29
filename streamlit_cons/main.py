@@ -37,6 +37,7 @@ gc = gspread.authorize(credentials)
 
 sh = gc.open_by_url('https://docs.google.com/spreadsheets/d/1pt5tV_zFIIGQgJ-kN88LhkiieuHSLUodSzQ4Dyfjido/edit?usp=sharing')
 worksheet_list = sh.worksheets()
+worksheet = sh.get_worksheet(0)
 
 spreadsheetname= worksheet_list[0].title
 
@@ -58,8 +59,9 @@ def load_the_spreadsheet(spreadsheetname):
 # Update to Sheet
 def update_the_spreadsheet(spreadsheetname,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    sh.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
+    worksheet.update(spreadsheetname, dataframe)
     st.info('Updated to GoogleSheet')
+
 
 st.header('Streamlit: Banco de Señales')
 
@@ -109,9 +111,5 @@ if confirm_input:
     df = DataFrame(df)
     new_df = df.append(opt_df,ignore_index=True)
     update_the_spreadsheet(spreadsheetname,new_df)
-    st.table(new_df)
 else: 
     st.write('No se ha confirmado la entrada')
-
-    
-
