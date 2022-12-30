@@ -43,10 +43,10 @@ spreadsheetname= worksheet_list[0].title
 # Create a Google Authentication connection object
 
 
-client = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
+cliente = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
 
 #Revisar esto, quizá deba hardcodearse
-cliente = Client(credentials)
+
 spreadsheetnames = "Database"
 spread = Spread("spreadsheetnames",client = cliente)
 
