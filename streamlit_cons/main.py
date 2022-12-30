@@ -71,7 +71,7 @@ def load_the_spreadsheet(spreadsheetname):
 
 def update_the_spreadsheet(spreadsheetnames,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    spread.df_to_sheet(dataframe[col],sheet = spreadsheetnames,index = False)
+    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
     st.info('Updated to GoogleSheet')
 
 
