@@ -47,8 +47,8 @@ cliente = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=cred
 
 #Revisar esto, quizá deba hardcodearse
 
-spreadsheetnames = "Database"
-spread = Spread(spreadsheetname,client = cliente)
+spreadsheetnames = st.secrets['private_gsheets_url']
+spread = Spread(spread=spreadsheetnames,sheet=spreadsheetname,client = cliente)
 
 
 # Functions 
