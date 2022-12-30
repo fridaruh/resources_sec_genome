@@ -48,7 +48,7 @@ cliente = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=cred
 #Revisar esto, quizá deba hardcodearse
 
 spreadsheetnames = "Database"
-spread = Spread(spreadsheetnames,client = cliente)
+spread = Spread(spreadsheetname,client = cliente)
 
 
 # Functions 
