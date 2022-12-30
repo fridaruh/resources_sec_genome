@@ -40,6 +40,17 @@ worksheet_list = sh.worksheets()
 
 spreadsheetname= worksheet_list[0].title
 
+# Create a Google Authentication connection object
+
+
+client = Client(scope="https://www.googleapis.com/auth/spreadsheets",creds=credentials)
+
+#Revisar esto, quizá deba hardcodearse
+cliente = Client(credentials)
+spreadsheetnames = "Database"
+spread = Spread("spreadsheetnames",client = cliente)
+
+
 # Functions 
 @st.cache()
 # Get our worksheet names
@@ -57,14 +68,10 @@ def load_the_spreadsheet(spreadsheetname):
    df = DataFrame(worksheet.get_all_records())
    return df
 
-#Revisar esto, quizá deba hardcodearse
-cliente = Client(credentials)
-spread = Spread(spreadsheetname,client = cliente)
 
-
-def update_the_spreadsheet(spreadsheetname,dataframe):
+def update_the_spreadsheet(spreadsheetnames,dataframe):
     col = ['Enlace','Resumen','Time_stamp','What?','So what?']
-    spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
+    spread.df_to_sheet(dataframe[col],sheet = spreadsheetnames,index = False)
     st.info('Updated to GoogleSheet')
 
 
@@ -115,6 +122,6 @@ if confirm_input:
     df = load_the_spreadsheet(spreadsheetname)
     df = DataFrame(df)
     new_df = df.append(opt_df,ignore_index=True)
-    update_the_spreadsheet(spreadsheetname,new_df)
+    update_the_spreadsheet(spreadsheetnames,new_df)
 else: 
     st.write('No se ha confirmado la entrada')
