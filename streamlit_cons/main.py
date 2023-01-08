@@ -144,7 +144,9 @@ topic = st.selectbox('¿A qué tema pertenece la señal',( 'Animales','Árboles'
 
 #Agregar stakeholder
 
-stakeholder = st.selectbox('¿A qué stakeholder pertenece la señal?',('Academia','Acedamia y Startup','Empresa Privada'))
+stakeholder = st.selectbox('¿A qué stakeholder pertenece la señal?',('Academia','Acedamia y Startup',
+                                                                     'Empresa Privada','Gobierno','Grupos de poder',
+                                                                     'Hospital','Individuo','Startups'))
 
 #Agregar entrada de información
 
