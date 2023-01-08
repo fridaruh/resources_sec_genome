@@ -70,7 +70,9 @@ def load_the_spreadsheet(spreadsheetname):
 
 
 def update_the_spreadsheet(spreadsheetnames,dataframe):
-    col = ['Enlace','Resumen','Time_stamp','What?','So what?']
+    col = ['Enlace','Resumen','Time_stamp','What?','So what?', 'Sociedad','Tecnología',
+    'Industria','Recursos','Demografía','Economía','Ambiental','Política','Energía',
+    'Religión','CIPHER','ETA','Topic','Stakeholder']
     spread.df_to_sheet(dataframe[col],sheet = spreadsheetname,index = False)
     st.info('Updated to GoogleSheet')
 
@@ -88,7 +90,7 @@ summary = st.text_input('Summary')
 
 
 # Mostrar la información
-st.title('Mostrar la información')
+st.title('Mostrar el resumen de OpenAI')
 show = st.button('Mostrar información OpenAI')
 
 what = "Get very short abstract in spanish of this text: "+summary
@@ -107,17 +109,67 @@ if show:
 else:
     st.write('No se ha mostrado la información')
 
+#Agregar checkbox de STIRDEEPER
+
+st.title('STIRDEEPER')
+st.write('Marca las casillas que apliquen para el análisis de STIRDEEPER')
+
+sd_social = st.checkbox('Sociedad', value=False,)
+sd_tech = st.checkbox('Tecnología', value=False,)
+sd_industry = st.checkbox('Industria', value=False,)
+sd_resources = st.checkbox('Recursos', value=False,)
+sd_demography = st.checkbox('Demografía', value=False,)
+sd_economy = st.checkbox('Economía', value=False,)
+sd_environment = st.checkbox('Ambiental', value=False,)
+sd_politics = st.checkbox('Política', value=False,)
+sd_energy = st.checkbox('Energía', value=False,)
+sd_religion = st.checkbox('Religión', value=False,)
+
+#Agregar CIPHER
+
+cipher = st.selectbox(
+    '¿A qué categoría de CIPHER pertenece la señal?',
+    ('Contradicción', 'Inflexión', 'Práctica','Hack','Extremo','Rareza'))
+
+#Agregar ETA
+
+eta = st.selectbox('¿cuál es el ETA de la señal?', ('Corto plazo', 'Mediano plazo','Largo plazo'))
+
+#Agregar topic
+
+topic = st.selectbox('¿A qué tema pertenece la señal',( 'Animales','Árboles','Brotes de enfermedades',
+'Colaboración','Divulgación','Educación','Enfermedades raras','Enfermedades terminales','Escenario',
+'Estudio','Historia','Machine Learning','Método','Pandemias','Pre-natal','Recolección del genoma',
+'Rejuvenecimiento','Super Alimentos','Tratamiento de enfermedades'))
+
+#Agregar stakeholder
+
+stakeholder = st.selectbox('¿A qué stakeholder pertenece la señal?',('Academia','Acedamia y Startup','Empresa Privada'))
 
 #Agregar entrada de información
 
-confirm_input = st.button('Confirm')
+confirm_input = st.button('Agregar información')
 if confirm_input:
     now = datetime.now()
     opt = {'Enlace': [link],
             'Resumen' : [summary],
             'Time_stamp' : [now],
             'What?' : [resumen_openai_what_ans],
-            'So what?' : [resumen_openai_why_ans]}
+            'So what?' : [resumen_openai_why_ans],
+            'Sociedad' : [sd_social],
+            'Tecnología' : [sd_tech],
+            'Industria' : [sd_industry],
+            'Recursos' : [sd_resources],
+            'Demografía' : [sd_demography],
+            'Economía' : [sd_economy],
+            'Ambiental' : [sd_environment],
+            'Política' : [sd_politics],
+            'Energía' : [sd_energy],
+            'Religión' : [sd_religion],
+            'CIPHER' : [cipher],
+            'ETA' : [eta],
+            'Topic' : [topic],
+            'Stakeholder' : [stakeholder]}
     opt_df = DataFrame(opt)
     df = load_the_spreadsheet(spreadsheetname)
     df = DataFrame(df)
