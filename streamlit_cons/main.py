@@ -86,7 +86,7 @@ link = st.text_input('Link')
 
 # Introducir el resumen
 st.write('Introduce el resumen')
-summary = st.text_input('Summary')
+summary = st.text_area('Summary')
 
 
 # Mostrar la información
