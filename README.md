@@ -8,3 +8,7 @@ En el siguiente repositorio se encuentran disponibles los siguientes recursos:
 - Crear QR desde Python 
 - Script para pasar de links a una citación automática con APA 7
 - Script para obtener el resumen y el por qué es importante un artículo utilizando GPT-3 de Open AI
+
+![Imagen](https://imgur.com/W8vq0Ra)
+![Imagen](https://imgur.com/saHaahk)
+![Imagen](https://imgur.com/92lTPnG)
